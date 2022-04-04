@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'Pushing the application...'
                 script {
-                    docker.withRegistry('https://eu.gcr.io', 'gcr:google-container-registry') {
+                    docker.withRegistry('https://us.gcr.io', 'gcr: Khaled GCR') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
