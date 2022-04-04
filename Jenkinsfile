@@ -23,7 +23,7 @@ pipeline {
             steps {
                 echo 'Pushing the application...'
                 script {
-                    docker.withRegistry('https://us.gcr.io', registryCredential)
+                    docker.withRegistry('https://gcr.io', registryCredential)
                     dockerImage.push('latest')
                 }
             }
