@@ -2,11 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Cloning Git') {
-            steps {
-                git 'https://github.com/Khaled-dabbas/my-devops-project.git'
-            }
-        }
+
+
+
+
 
         stage("Building Image") {
             steps {
