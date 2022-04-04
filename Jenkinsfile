@@ -14,7 +14,7 @@ pipeline {
                 echo 'Building the application...'
                 sh 'git pull'
                 script {
-                    dockerImage = docker.build(registry + ":$BUILD_NUMBER")
+                    dockerImage = docker.build(registry + "/$BUILD_NUMBER")
                 }
             }
         }
@@ -24,7 +24,8 @@ pipeline {
                 echo 'Pushing the application...'
                 script {
                     docker.withRegistry("https://gcr.io", registryCredential) {
-                        app.push('latest')
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
                     }
                 }
             }
@@ -32,7 +33,7 @@ pipeline {
 
         stage('Remove Unused docker image') {
             steps{
-                sh "docker rmi $registry:$BUILD_NUMBER"
+                sh "docker rmi $registry/$BUILD_NUMBER"
             }
         }
     }
