@@ -24,7 +24,7 @@ pipeline {
                 echo 'Pushing the application...'
                 script {
                     docker.withRegistry('https://gcr.io', registryCredential) {
-                        app.push()
+                        dockerImage.push()
                     }
                 }
             }
