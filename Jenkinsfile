@@ -22,7 +22,7 @@ pipeline {
         stage("Pushing image to registry") {
             steps {
                 echo 'Pushing the application...'
-                sh "gcloud docker -- push us.gcr.io/[my-project-id]/[my-artifact-id]"
+                sh "gcloud docker -- push us.gcr.io/gcp-study-345608/gcr:my-pipeline"
             }
         }
 
