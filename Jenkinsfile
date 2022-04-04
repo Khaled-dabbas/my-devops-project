@@ -22,11 +22,7 @@ pipeline {
         stage("Pushing image to registry") {
             steps {
                 echo 'Pushing the application...'
-                script {
-                    docker.withRegistry('https://gcr.io', registryCredential) {
-                        dockerImage.push()
-                    }
-                }
+                sh "gcloud docker -- push us.gcr.io/[my-project-id]/[my-artifact-id]"
             }
         }
 
