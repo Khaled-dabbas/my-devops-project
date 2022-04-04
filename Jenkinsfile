@@ -1,18 +1,20 @@
 pipeline {
     agent any
 
+    environment {
+        registry = "gcp-study-345608"
+        registryCredential = 'gcr:my-pipeline'
+        dockerImage = ''
+    }
+
     stages {
-
-
-
-
 
         stage("Building Image") {
             steps {
                 echo 'Building the application...'
                 sh 'git pull'
                 script {
-                    app = docker.build('gcp-study-345608/test-gcr')
+                    dockerImage = docker.build(registry + ":$BUILD_NUMBER")
                 }
             }
         }
@@ -21,10 +23,15 @@ pipeline {
             steps {
                 echo 'Pushing the application...'
                 script {
-                    docker.withRegistry('https://eu.gcr.io', 'gcr:my-pipeline') {
-                        app.push("latest")
-                    }
+                    docker.withRegistry('https://us.gcr.io', registryCredential)
+                    dockerImage.push('latest')
                 }
+            }
+        }
+
+        stage('Remove Unused docker image') {
+            steps{
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
     }
