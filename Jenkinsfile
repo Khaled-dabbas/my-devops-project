@@ -2,24 +2,27 @@ pipeline {
     agent any
 
     stages {
-        stage("build") {
+        stage("Building Image") {
             steps {
                 echo 'Building the application...'
-                sh 'npm install'
-                sh 'npm build'
+                sh 'git pull'
+                app = docker.build('gcp-study-345608/test-gcr')
             }
         }
 
-        stage("test") {
+        stage("Pushing image to registry") {
             steps {
-                echo 'Testing the application...'
+                echo 'Pushing the application...'
+                docker.withRegistry('https://eu.gcr.io', 'gcr:google-container-registry') {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+                }
             }
         }
 
         stage("deploy") {
             steps {
                 echo 'Deploying the application...'
-                sh 'npm start'
             }
         }
     }
