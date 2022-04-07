@@ -15,11 +15,9 @@ app.use(express.static(__dirname + '/app/public')); // KULLANICILAR TARAFINDAN E
 
 require('./app/routes')(app); // ROUTE DOSYASI ÇAĞIRILDI
 
-/*
-
-HTTP SERVER OLUŞTURULDU
-
-*/
-http.createServer(app).listen(app.get('port'), function(){
-	console.log('Sistem ' + app.get('port') + ' Portu Üzerinde Çalışıyor.');
-});
+const proccessChannelSectionsSync = async (event) => {
+	console.log('KHALED TESTING ');
+  };
+  
+exports.proccessChannelSectionsSync = proccessChannelSectionsSync;
+  
